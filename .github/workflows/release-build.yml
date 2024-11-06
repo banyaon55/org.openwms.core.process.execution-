@@ -11,14 +11,6 @@ jobs:
   build_job:
     runs-on: ubuntu-latest
     name: Build & Test Microservice on Release branches
-    services:
-      rabbitmq:
-        image: rabbitmq:3.8
-        env:
-          RABBITMQ_DEFAULT_USER: guest
-          RABBITMQ_DEFAULT_PASS: guest
-        ports:
-          - 5672:5672
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -29,10 +21,17 @@ jobs:
       - name: Set Release version env variable
         run: |
           echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+      - uses: s4u/maven-settings-action@v2.8.0
+        with:
+          servers: |
+            [{
+              "id": "sonatype-nexus-snapshots",
+              "username": "${{ secrets.OSS_USERNAME }}",
+              "password": "${{ secrets.OSS_PASSWORD }}"
+            }]
       - name: Build
         run: >
-          ./mvnw clean verify
-          -DsurefireArgs=-Dspring.profiles.active=ASYNCHRONOUS,TEST
-          -Dspring.rabbitmq.host=localhost
+          ./mvnw clean deploy
+          -DsurefireArgs=-Dspring.profiles.active=TEST
           -Dci.buildNumber=$GITHUB_RUN_NUMBER
           -U -B $MAVEN_OPTS
