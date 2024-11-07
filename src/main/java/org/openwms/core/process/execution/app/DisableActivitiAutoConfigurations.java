@@ -37,7 +37,8 @@ import org.springframework.context.annotation.Profile;
         "org.activiti.runtime.api.conf.ProcessRuntimeAutoConfiguration",
         "org.activiti.runtime.api.conf.TaskRuntimeAutoConfiguration",
         "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration",
-        "org.activiti.spring.process.conf.ProcessExtensionsConfiguratorAutoConfiguration"
+        "org.activiti.spring.process.conf.ProcessExtensionsConfiguratorAutoConfiguration",
+        "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration"
 })
-class DisableActivitiAutoConfigurations {
+public class DisableActivitiAutoConfigurations {
 }

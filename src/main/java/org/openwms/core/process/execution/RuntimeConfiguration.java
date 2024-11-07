@@ -15,20 +15,10 @@
  */
 package org.openwms.core.process.execution;
 
-import org.ameba.annotation.EnableAspects;
-import org.ameba.http.identity.EnableIdentityAwareness;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.TaskScheduler;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * A RuntimeConfiguration.
@@ -36,16 +26,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Heiko Scherrer
  */
 @Configuration
-@EnableAspects(propagateRootCause = true)
-@EnableRetry
-@EnableTransactionManagement
-@EnableJpaRepositories
-@EnableJpaAuditing
-@EnableCaching
-@EnableScheduling
-@EntityScan
-@EnableIdentityAwareness
-@EnableConfigurationProperties
 public class RuntimeConfiguration {
 
     @Bean
