@@ -43,7 +43,7 @@ class ActivitiExecutor extends AbstractExecutor<ProcessDefinition> {
     ActivitiExecutor(RuntimeService runtimeService, RepositoryService repositoryService) {
         this.runtimeService = runtimeService;
         this.repositoryService = repositoryService;
-        BOOT_LOGGER.info("--w/ Activiti executor");
+        BOOT_LOGGER.info("-- w/ Activiti executor");
     }
 
     /**

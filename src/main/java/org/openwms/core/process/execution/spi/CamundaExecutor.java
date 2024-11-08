@@ -43,7 +43,7 @@ class CamundaExecutor extends AbstractExecutor<ProcessDefinition> {
     CamundaExecutor(RuntimeService runtimeService, RepositoryService repositoryService) {
         this.runtimeService = runtimeService;
         this.repositoryService = repositoryService;
-        BOOT_LOGGER.info("--w/ Camunda executor");
+        BOOT_LOGGER.info("-- w/ Camunda executor");
     }
 
     /**
