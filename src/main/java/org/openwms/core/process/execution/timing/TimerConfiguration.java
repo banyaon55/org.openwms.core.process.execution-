@@ -15,8 +15,6 @@
  */
 package org.openwms.core.process.execution.timing;
 
-import org.ameba.integration.jpa.ApplicationEntity;
-
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -27,8 +25,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapKeyColumn;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import org.ameba.integration.jpa.ApplicationEntity;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A TimerConfiguration stores timer configuration when a workflow should be executed.
@@ -64,6 +65,11 @@ public class TimerConfiguration extends ApplicationEntity {
 
     protected TimerConfiguration() {}
 
+    @Override
+    public void setPersistentKey(String pKey) {
+        super.setPersistentKey(pKey);
+    }
+
     public String getName() {
         return name;
     }
@@ -94,5 +100,29 @@ public class TimerConfiguration extends ApplicationEntity {
 
     public void setRuntimeVariables(Map<String, String> runtimeVariables) {
         this.runtimeVariables = runtimeVariables;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * All fields.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        var that = (TimerConfiguration) o;
+        return Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(cronExpression, that.cronExpression) && Objects.equals(runtimeVariables, that.runtimeVariables);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * All fields.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), name, description, cronExpression, runtimeVariables);
     }
 }

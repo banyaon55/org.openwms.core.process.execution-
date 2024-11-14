@@ -15,22 +15,32 @@
  */
 package org.openwms.core.process.execution.timing;
 
-import jakarta.validation.constraints.NotNull;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.openwms.core.process.execution.timing.api.TimerConfigurationVO;
+import org.ameba.app.SolutionApp;
+import org.openwms.core.process.execution.RuntimeConfiguration;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * A TimerConfigurationMapper.
+ * A TestServiceRunner.
  *
  * @author Heiko Scherrer
  */
-@Mapper
-public interface TimerConfigurationMapper {
+@SpringBootApplication(
+        scanBasePackageClasses = {
+                SolutionApp.class,
+                RuntimeConfiguration.class,
+                TestServiceRunner.class
+        }
+)
+public class TestServiceRunner {
 
-    @Mapping(target = "persistentKey", source = "pKey")
-    TimerConfiguration convert(TimerConfigurationVO vo);
-
-    @Mapping(target = "pKey", source = "persistentKey")
-    TimerConfigurationVO convertToVO(@NotNull TimerConfiguration eo);
+    /**
+     * Boot up!
+     *
+     * @param args Some args
+     */
+    public static void main(String[] args) {
+        var ctx = SpringApplication.run(TestServiceRunner.class, args);
+        ctx.start();
+    }
 }

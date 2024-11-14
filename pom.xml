@@ -10,7 +10,7 @@
         <relativePath />
     </parent>
     <artifactId>org.openwms.core.process.execution</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <name>OpenWMS.org CORE: Process Execution Runtime</name>
     <description>A library to manage and run workflow executions</description>
     <url>https://openwms.github.io/${project.artifactId}/index.html</url>
@@ -77,6 +77,7 @@
         <guava.version>32.0.0-jre</guava.version>
         <servo-core.version>0.12.21</servo-core.version>
         <spring-cloud-dependencies.version>2023.0.1</spring-cloud-dependencies.version>
+        <surefireArgs>-Dspring.profiles.active=TEST</surefireArgs>
     </properties>
 
     <reporting>
@@ -136,6 +137,10 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <executions>
                     <execution>
@@ -149,6 +154,10 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
@@ -442,12 +451,17 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <artifactId>spring-boot-test-autoconfigure</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test-autoconfigure</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

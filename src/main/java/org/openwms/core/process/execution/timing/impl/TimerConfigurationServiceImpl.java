@@ -15,15 +15,16 @@
  */
 package org.openwms.core.process.execution.timing.impl;
 
-import org.ameba.annotation.Measured;
-import org.ameba.annotation.TxService;
-import org.openwms.core.process.execution.timing.events.ConfigurationEvent;
-import org.openwms.core.process.execution.timing.TimerConfiguration;
-import org.openwms.core.process.execution.timing.TimerConfigurationService;
-import org.springframework.context.ApplicationEventPublisher;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.ameba.annotation.Measured;
+import org.ameba.annotation.TxService;
+import org.ameba.exception.NotFoundException;
+import org.openwms.core.process.execution.timing.TimerConfiguration;
+import org.openwms.core.process.execution.timing.TimerConfigurationService;
+import org.openwms.core.process.execution.timing.events.ConfigurationEvent;
+import org.springframework.context.ApplicationEventPublisher;
+
 import java.util.List;
 
 /**
@@ -70,5 +71,14 @@ class TimerConfigurationServiceImpl implements TimerConfigurationService {
     public void delete(@NotBlank String pKey) {
         timerConfigurationRepository.deleteBypKey(pKey);
         publisher.publishEvent(new ConfigurationEvent(pKey, ConfigurationEvent.EventType.DELETED));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Measured
+    @Override
+    public @NotNull TimerConfiguration findByPKey(@NotBlank String pKey) {
+        return timerConfigurationRepository.findBypKey(pKey).orElseThrow(() -> new NotFoundException("TimerConfiguration with pKey [%s] not found".formatted(pKey)));
     }
 }

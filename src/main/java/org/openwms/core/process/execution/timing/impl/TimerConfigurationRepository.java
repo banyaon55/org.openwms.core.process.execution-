@@ -18,12 +18,16 @@ package org.openwms.core.process.execution.timing.impl;
 import org.openwms.core.process.execution.timing.TimerConfiguration;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 /**
  * A TimerConfigurationRepository.
  *
  * @author Heiko Scherrer
  */
 interface TimerConfigurationRepository extends JpaRepository<TimerConfiguration, Long> {
+
+    Optional<TimerConfiguration> findBypKey(String pKey);
 
     void deleteBypKey(String pKey);
 }

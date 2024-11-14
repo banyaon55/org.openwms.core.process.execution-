@@ -15,6 +15,7 @@
  */
 package org.openwms.core.process.execution.timing;
 
+import jakarta.annotation.PostConstruct;
 import org.openwms.core.process.execution.spi.ProgramExecutor;
 import org.openwms.core.process.execution.timing.events.ConfigurationEvent;
 import org.slf4j.Logger;
@@ -24,7 +25,6 @@ import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionalEventListener;
 
-import jakarta.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -83,9 +83,7 @@ class TimeTriggeredWorkflowExecutor {
     private void createAndSchedule(TimerConfiguration tc) {
         var cronTrigger = new CronTrigger(tc.getCronExpression());
         var scheduledFuture = taskScheduler.schedule(
-                () -> {
-                    programExecutor.execute(tc.getName(), new HashMap<>(tc.getRuntimeVariables()));
-                },
+                () -> programExecutor.execute(tc.getName(), new HashMap<>(tc.getRuntimeVariables())),
                 cronTrigger);
         scheduledFutureMap.put(tc.getPersistentKey(), scheduledFuture);
     }

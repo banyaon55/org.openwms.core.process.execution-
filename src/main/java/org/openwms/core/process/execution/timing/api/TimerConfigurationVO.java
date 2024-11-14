@@ -16,8 +16,8 @@
 package org.openwms.core.process.execution.timing.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import jakarta.validation.constraints.NotBlank;
+
 import java.io.Serializable;
 import java.util.Map;
 
@@ -27,15 +27,27 @@ import java.util.Map;
  * @author Heiko Scherrer
  */
 public record TimerConfigurationVO(
+
+        /** The persistent technical key of the {@code Location}. */
+        @JsonProperty("pKey")
+        String pKey,
+        /** Name of the workflow to execute. */
         @NotBlank
         @JsonProperty("name")
         String name,
+        /** A descriptive text for the configuration. */
         @JsonProperty("description")
         String description,
+        /** A 6-digit Spring Cron expression, like {@literal 10 * * * * ?}. */
         @NotBlank
         @JsonProperty("cronExpression")
         String cronExpression,
+        /** An arbitrary map of runtime variables that are passed to the workflow execution. */
         @JsonProperty("runtimeVariables")
         Map<String, String> runtimeVariables
 ) implements Serializable {
+
+        public TimerConfigurationVO(String name, String description, String cronExpression, Map<String, String> runtimeVariables) {
+                this("", name, description, cronExpression, runtimeVariables);
+        }
 }

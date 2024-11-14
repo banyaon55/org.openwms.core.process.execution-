@@ -17,6 +17,7 @@ package org.openwms.core.process.execution.timing;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
 import java.util.List;
 
 /**
@@ -26,9 +27,33 @@ import java.util.List;
  */
 public interface TimerConfigurationService {
 
+    /**
+     * Load all {@link TimerConfiguration} entities.
+     *
+     * @return A list of TimerConfiguration instances.
+     */
     List<TimerConfiguration> loadConfigurations();
 
+    /**
+     * Creates a new {@link TimerConfiguration} instance.
+     *
+     * @param newInstance The TimerConfiguration instance to be created
+     * @return The created TimerConfiguration instance
+     */
     TimerConfiguration create(@NotNull TimerConfiguration newInstance);
 
+    /**
+     * Deletes a {@link TimerConfiguration} identified by the given persistent key.
+     *
+     * @param pKey The persistent key that identifies the TimerConfiguration to be deleted
+     */
     void delete(@NotBlank String pKey);
+
+    /**
+     * Find and return a {@link TimerConfiguration}.
+     *
+     * @param pKey The persistent key that identifies the TimerConfiguration
+     * @return The instance, never {@literal null}
+     */
+    @NotNull TimerConfiguration findByPKey(@NotBlank String pKey);
 }

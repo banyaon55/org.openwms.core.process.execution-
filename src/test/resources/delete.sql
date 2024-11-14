@@ -1,0 +1,2 @@
+delete from tms_rsrv_timer_config_vars;
+delete from tms_rsrv_timer_config;

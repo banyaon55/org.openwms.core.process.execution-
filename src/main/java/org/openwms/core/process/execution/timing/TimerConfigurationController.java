@@ -15,16 +15,16 @@
  */
 package org.openwms.core.process.execution.timing;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.ameba.http.MeasuredRestController;
 import org.openwms.core.http.AbstractWebController;
 import org.openwms.core.process.execution.timing.api.TimerConfigurationVO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * A TimerConfigurationController.
@@ -40,6 +40,11 @@ class TimerConfigurationController extends AbstractWebController {
     TimerConfigurationController(TimerConfigurationMapper mapper, TimerConfigurationService service) {
         this.mapper = mapper;
         this.service = service;
+    }
+
+    @GetMapping("/timers/{pKey}")
+    public ResponseEntity<TimerConfigurationVO> findByPKey(@PathVariable String pKey) {
+        return ResponseEntity.ok(mapper.convertToVO(service.findByPKey(pKey)));
     }
 
     @PostMapping("/timers")
