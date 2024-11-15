@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.openwms.core.process.execution.timing;
+package org.openwms.core.process.execution;
 
 import org.ameba.app.SolutionApp;
-import org.openwms.core.process.execution.RuntimeConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
