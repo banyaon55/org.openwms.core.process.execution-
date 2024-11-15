@@ -70,7 +70,6 @@ class TimeTriggeredWorkflowExecutor {
                 }
             }
             default -> LOGGER.warn("Unknown ConfigurationEvent type: {}", configurationEvent.getType());
-
         }
     }
 
