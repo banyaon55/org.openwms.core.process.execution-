@@ -13,42 +13,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.openwms.core.process.execution.spi;
+package org.openwms.core.process.execution.spi.activiti;
 
-import org.camunda.bpm.engine.RepositoryService;
-import org.camunda.bpm.engine.RuntimeService;
-import org.camunda.bpm.engine.repository.ProcessDefinition;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.delegate.event.ActivitiEventListener;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.ameba.annotation.Measured;
+import org.openwms.core.process.execution.spi.AbstractExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.ameba.LoggingCategories.BOOT;
 
 /**
- * A CamundaExecutor delegates to Camunda for program execution.
+ * A ActivitiExecutor delegates to Activiti for program execution.
  *
  * @author Heiko Scherrer
  */
-@Profile("!FLOWABLE && !ACTIVITI")
+@Profile("ACTIVITI")
 @Component
-class CamundaExecutor extends AbstractExecutor<ProcessDefinition> {
+class ActivitiExecutor extends AbstractExecutor<ProcessDefinition> {
 
     private static final Logger BOOT_LOGGER = LoggerFactory.getLogger(BOOT);
     private final RuntimeService runtimeService;
     private final RepositoryService repositoryService;
+    private final List<ActivitiEventListener> eventListeners;
 
-    CamundaExecutor(RuntimeService runtimeService, RepositoryService repositoryService) {
+    ActivitiExecutor(RuntimeService runtimeService, RepositoryService repositoryService,
+            @Autowired(required = false) List<ActivitiEventListener> eventListeners) {
         this.runtimeService = runtimeService;
         this.repositoryService = repositoryService;
-        BOOT_LOGGER.info("-- w/ Camunda executor");
+        this.eventListeners = eventListeners;
+        BOOT_LOGGER.info("-- w/ Activiti executor");
     }
 
     /**
      * {@inheritDoc}
      */
+    @Measured
     @Override
     protected ProcessDefinition loadProcessDefinition(String processName) {
         return repositoryService.createProcessDefinitionQuery().processDefinitionKey(processName).active().latestVersion().singleResult();
@@ -57,8 +66,14 @@ class CamundaExecutor extends AbstractExecutor<ProcessDefinition> {
     /**
      * {@inheritDoc}
      */
+    @Measured
     @Override
     protected void executeProcessDefinition(ProcessDefinition processDefinition, Map<String, Object> runtimeVariables) {
+        if (eventListeners != null) {
+            for (var eventListener : eventListeners) {
+                runtimeService.addEventListener(eventListener);
+            }
+        }
         runtimeService.startProcessInstanceById(processDefinition.getId(), runtimeVariables);
     }
 }

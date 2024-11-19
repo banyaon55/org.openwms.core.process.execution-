@@ -43,13 +43,10 @@ owms:
   srv:
     hostname: localhost
     protocol: http
-  printing:
-    root-path: .
-    templates:
-      path: "classpath:"
-      suffix: .jrxml
-    mode: standalone
-    cache-reports: true
+  process:
+    execution:
+      amqp:
+        exchange-name: bpmn-exec-events
 
 server:
   port: ${PORT:8133}

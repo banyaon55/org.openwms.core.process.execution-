@@ -204,7 +204,7 @@
                 <version>${groovy-jsr223.version}</version>
             </dependency>
 
-            <!-- Flowable >
+            <!-- Flowable -->
             <dependency>
                 <groupId>org.flowable</groupId>
                 <artifactId>flowable-spring-boot-starter</artifactId>
@@ -226,7 +226,7 @@
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency-->
+            </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
@@ -388,14 +388,14 @@
             <optional>true</optional>
         </dependency>
 
-        <!--dependency>
+        <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-spring-boot-starter-dmn</artifactId>
-        </dependency-->
+        </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-jsr223</artifactId>
