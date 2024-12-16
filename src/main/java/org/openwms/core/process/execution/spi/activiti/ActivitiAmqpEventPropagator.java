@@ -15,6 +15,8 @@
  */
 package org.openwms.core.process.execution.spi.activiti;
 
+import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.ameba.annotation.Measured;
@@ -39,10 +41,14 @@ class ActivitiAmqpEventPropagator implements ActivitiEventListener {
     private static final Logger LOGGER = LoggerFactory.getLogger("AMQP_EVENTS");
     private final String exchangeName;
     private final AmqpTemplate amqpTemplate;
+    private final RepositoryService repositoryService;
+    private final ProcessEngine processEngine;
 
-    ActivitiAmqpEventPropagator(@Value("${owms.process.execution.amqp.exchange-name}") String exchangeName, AmqpTemplate amqpTemplate) {
+    ActivitiAmqpEventPropagator(@Value("${owms.process.execution.amqp.exchange-name}") String exchangeName, AmqpTemplate amqpTemplate, RepositoryService repositoryService, ProcessEngine processEngine) {
         this.exchangeName = exchangeName;
         this.amqpTemplate = amqpTemplate;
+        this.repositoryService = repositoryService;
+        this.processEngine = processEngine;
     }
 
     /**
@@ -59,12 +65,24 @@ class ActivitiAmqpEventPropagator implements ActivitiEventListener {
                     LOGGER.trace("Event: [{}, {}, {}, {}]", event.getType(), event.getExecutionId(), event.getProcessDefinitionId(),
                             event.getProcessInstanceId());
                 }
+                processEngine.getHistoryService().createHistoricProcessInstanceQuery().list().forEach(pi -> {
+                    //System.out.println(pi.toString());
+                });
+                processEngine.getRuntimeService().createExecutionQuery().list().forEach(pi -> {
+                    System.out.println(pi.toString());
+                });
                 amqpTemplate.convertAndSend(exchangeName, "execution.event."+event.getType().name(), new WorkflowEvent(event.getType().name(), event.getExecutionId(),
                         event.getProcessDefinitionId(),
                         event.getProcessInstanceId()));
                 break;
             default:
                 LOGGER.trace("Unhandled event received: [{}]", event.getType());
+                processEngine.getHistoryService().createHistoricProcessInstanceQuery().list().forEach(pi -> {
+                    //System.out.println(pi.toString());
+                });
+                processEngine.getRuntimeService().createExecutionQuery().list().forEach(pi -> {
+                    //System.out.println(pi.toString());
+                });
         }
     }
 

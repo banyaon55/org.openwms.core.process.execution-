@@ -18,6 +18,7 @@ package org.openwms.core.process.execution;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 /**
@@ -25,6 +26,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
  *
  * @author Heiko Scherrer
  */
+@EnableAsync
 @Configuration
 public class RuntimeConfiguration {
 
@@ -32,7 +34,7 @@ public class RuntimeConfiguration {
     public TaskScheduler taskScheduler() {
         var scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(5);
-        scheduler.setThreadNamePrefix("RoutingModule-");
+        scheduler.setThreadNamePrefix("ProcessExecution-");
         scheduler.setWaitForTasksToCompleteOnShutdown(true);
         scheduler.setRemoveOnCancelPolicy(true);
         return scheduler;

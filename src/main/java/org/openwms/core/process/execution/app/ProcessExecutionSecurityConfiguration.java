@@ -24,12 +24,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.filter.CorsFilter;
 
 /**
- * A RoutingRuntimeSecurityConfiguration.
+ * A ProcessExecutionSecurityConfiguration.
  *
  * @author Heiko Scherrer
  */
 @Configuration
-class RoutingRuntimeSecurityConfiguration {
+class ProcessExecutionSecurityConfiguration {
 
     /**
      * {@inheritDoc}
