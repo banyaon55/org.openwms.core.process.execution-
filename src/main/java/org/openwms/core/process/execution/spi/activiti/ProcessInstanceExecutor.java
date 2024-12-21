@@ -17,6 +17,7 @@ package org.openwms.core.process.execution.spi.activiti;
 
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +28,7 @@ import java.util.Map;
  *
  * @author Heiko Scherrer
  */
+@Profile("ACTIVITI")
 @Component
 class ProcessInstanceExecutor {
 

@@ -15,7 +15,6 @@
  */
 package org.openwms.core.process.execution.spi.activiti;
 
-import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
@@ -45,15 +44,13 @@ class ActivitiExecutor extends AbstractExecutor<ProcessDefinition> {
     private static final Logger BOOT_LOGGER = LoggerFactory.getLogger(BOOT);
     private final RuntimeService runtimeService;
     private final ProcessInstanceExecutor processInstanceExecutor;
-    private final ProcessEngine processEngine;
     private final RepositoryService repositoryService;
     private final List<ActivitiEventListener> eventListeners;
 
-    ActivitiExecutor(RuntimeService runtimeService, ProcessInstanceExecutor processInstanceExecutor, ProcessEngine processEngine, RepositoryService repositoryService,
+    ActivitiExecutor(RuntimeService runtimeService, ProcessInstanceExecutor processInstanceExecutor, RepositoryService repositoryService,
             @Autowired(required = false) List<ActivitiEventListener> eventListeners) {
         this.runtimeService = runtimeService;
         this.processInstanceExecutor = processInstanceExecutor;
-        this.processEngine = processEngine;
         this.repositoryService = repositoryService;
         this.eventListeners = eventListeners;
         BOOT_LOGGER.info("-- w/ Activiti executor");
