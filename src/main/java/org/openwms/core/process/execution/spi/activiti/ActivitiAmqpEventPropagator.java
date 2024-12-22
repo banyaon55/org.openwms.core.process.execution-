@@ -33,7 +33,7 @@ import org.springframework.stereotype.Component;
  *
  * @author Heiko Scherrer
  */
-@Profile((SpringProfiles.ASYNCHRONOUS_PROFILE))
+@Profile("ACTIVITI && " + SpringProfiles.ASYNCHRONOUS_PROFILE)
 @Component
 class ActivitiAmqpEventPropagator implements ActivitiEventListener {
 
