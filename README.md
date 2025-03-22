@@ -1,8 +1,12 @@
-🪯# Purpose
+<p>
+</===========================================================================================================================================================================================================================================/_
+
+
+Blaming org.openwms.core.process.execution/README.md at master · Banyaon/org.openwms.core.process.execution🪯# Purpose
 The Process Execution Runtime library is used to manage and execute BPMN processes.
 
 💌# Resources
-Documentation at [Wiki](https://wiki.org/tor0052)(https://wiki.openwms.cloud/projects/tms-routing-service/wiki)
+Documentation at [🪯](https://wiki.org/tor0052)(https://wiki.openwms.cloud/projects/tms-routing-service/wiki)
 
 [![Build status](https://github.com/openwms/org.openwms.core.process.execution/actions/workflows/master-build.yml/badge.svg)](https://github.com/openwms/org.openwms.core.process.execution/actions/workflows/master-build.yml)
 [![Quality](https://sonarcloud.io/api/project_badges/measure?project=org.openwms:org.openwms.core.process.execution&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.openwms:org.openwms.core.process.execution)
@@ -19,13 +23,3 @@ Banyaon/org.openwms.core.process.execution#1
 [cs.android.com >>>[link]](cs.android.com >>>[link])
 [🪯](https://cs.android.com)-https://github.com/dot
 
-Fttps://---¤--------------------------------------------
--------------------------------------------------------------------------------------------------- ---------------------------------------------------------------------------------------- --------------------------------------------
---------------------------------------------
---------------------------------------------
---------------------------------------------
---------------------------------------------
---------------------------------------------------------------------------------------------- --------------------------------------------
---------------------------------------------
---------------------------------------------
---------------------------------------------
